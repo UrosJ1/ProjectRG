@@ -1,7 +1,7 @@
 # {NAME-OF-THE-PROJECT}
 
-{INDEX} - {STUDENT-FULL-NAME}  
-{PROJECT DESCRIPTION}
+mi22273 - Uros Jankovic 
+Solar system
 
 ## Controls
 
