@@ -12,6 +12,10 @@ class MainController : public engine::core::Controller {
     void initialize() override;
 
     bool loop() override;
+
+    void draw_planet();
+
+    void draw() override;
 };
 
 }// app

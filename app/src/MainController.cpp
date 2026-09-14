@@ -6,6 +6,7 @@
 #include "../../engine/test/app/include/app/MainController.hpp"
 
 #include <engine/platform/PlatformController.hpp>
+#include <engine/resources/ResourcesController.hpp>
 #include <spdlog/spdlog.h>
 
 namespace app {
@@ -16,4 +17,14 @@ bool MainController::loop() {
     if (platform->key(engine::platform::KEY_ESCAPE).is_down()) { return false; }
     return true;
 }
+
+void MainController::draw_planet() {
+    auto resursi = engine::core::Controller::get<engine::resources::ResourcesController>();
+    engine::resources::Model *model = resursi->model();//TODO
+
+    engine::resources::Shader *shader = resursi->shader("implementation");
+    model->draw(shader);
+}
+
+void MainController::draw() { draw_planet(); }
 }// app
