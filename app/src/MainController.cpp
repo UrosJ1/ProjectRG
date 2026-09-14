@@ -20,10 +20,10 @@ bool MainController::loop() {
 
 void MainController::draw_planet() {
     auto resursi = engine::core::Controller::get<engine::resources::ResourcesController>();
-    engine::resources::Model *model = resursi->model();//TODO
+    //engine::resources::Model *model = resursi->model(); TODO
 
     engine::resources::Shader *shader = resursi->shader("implementation");
-    model->draw(shader);
+    //model->draw(shader);
 }
 
 void MainController::draw() { draw_planet(); }
