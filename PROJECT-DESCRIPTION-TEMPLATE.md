@@ -6,9 +6,14 @@ Solar system
 ## Controls
 
 ESC -> Izlaz iz aplikacije  
-{BUTTON2} -> {ACTION2}  
-...  
-{BUTTONN} -> {ACTIONN}
+W -> Kretanje kamere napred  
+ARROW_KEY_UP -> Kretanje kamere napred
+D -> Kretanje kamere desno
+ARROW_KEY_RIGHT -> Kretanje kamere desno
+A -> Kretanje kamere levo
+ARROW_KEY_LEFT -> Kretanje kamere levo
+S -> Kretanje kamere nazad
+ARROW_KEY_DOWN -> Kretanje kamere nazad
 
 ## Features
 
