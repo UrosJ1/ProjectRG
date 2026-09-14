@@ -1,7 +1,7 @@
 # {NAME-OF-THE-PROJECT}
 
 mi22273 - Uros Jankovic
-Sunce i zemlja
+Sunce i Zemlja
 
 ## Controls
 
