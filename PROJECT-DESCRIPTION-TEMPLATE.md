@@ -37,7 +37,7 @@ ESC -> Izlaz iz aplikacije
 
 ## Models:
 
-[link1]   
+[link1] https://poly.pizza/m/58PjkXNdpPb
 [link2]
 
 ## Textures
