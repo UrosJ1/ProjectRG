@@ -1,6 +1,9 @@
 {
   "resources": {
     "models": {
+      "earth": {
+        "path": "earth/earth.obj"
+      }
     }
   },
   "window": {
