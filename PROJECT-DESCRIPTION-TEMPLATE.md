@@ -1,11 +1,11 @@
 # {NAME-OF-THE-PROJECT}
 
-mi22273 - Uros Jankovic 
+mi22273 - Uros Jankovic
 Solar system
 
 ## Controls
 
-{BUTTON1} -> {ACTION1}  
+ESC -> Izlaz iz aplikacije  
 {BUTTON2} -> {ACTION2}  
 ...  
 {BUTTONN} -> {ACTIONN}
@@ -20,19 +20,20 @@ Solar system
 
 ### Group A:
 
-[ ] Frame-buffers with post-processing   
-[ ] Off-screen Anti-Aliasing  
-[ ] Parallax Mapping
-[ ] Bloom with the use of HDR
+[/] Frame-buffers with post-processing   
+[/] Off-screen Anti-Aliasing  
+[/] Parallax Mapping
+[/] Bloom with the use of HDR
 
 ### Group B:
-[ ] Deferred Shading  
-[ ] Point Shadows  
-[ ] SSAO
+
+[/] Deferred Shading  
+[/] Point Shadows  
+[/] SSAO
 
 ### Engine improvement:
 
-[ ] ...
+[/] ...
 
 ## Models:
 

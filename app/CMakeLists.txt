@@ -6,8 +6,8 @@ file(GLOB headers include/*.hpp)
 include_directories(include/)
 
 add_executable(${PROJECT_NAME} ${sources} ${headers}
-        src/App.cpp
-        src/App.hpp
+        src/MyApp.cpp
+        src/MyApp.hpp
         src/MainController.cpp
         src/MainController.hpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE matf-rg-engine)
