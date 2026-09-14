@@ -1,7 +1,7 @@
 # {NAME-OF-THE-PROJECT}
 
 mi22273 - Uros Jankovic
-Solar system
+Sunce i zemlja
 
 ## Controls
 
@@ -43,7 +43,7 @@ ARROW_KEY_DOWN -> Kretanje kamere nazad
 ## Models:
 
 [link1] https://poly.pizza/m/58PjkXNdpPb
-[link2]
+[link2] https://poly.pizza/m/3XZEucM6wC7
 
 ## Textures
 

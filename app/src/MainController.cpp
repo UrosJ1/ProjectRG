@@ -11,6 +11,8 @@
 #include <engine/resources/ResourcesController.hpp>
 #include <spdlog/spdlog.h>
 
+using namespace std;
+
 namespace app {
 
 class MainPlatformEventObserver : public engine::platform::PlatformEventObserver {
@@ -38,7 +40,8 @@ bool MainController::loop() {
 void MainController::draw_planet() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
-    engine::resources::Model *planet = resources->model("earth");
+    engine::resources::Model *earth = resources->model("earth");
+    engine::resources::Model *sun = resources->model("sun");
 
     engine::resources::Shader *shader = resources->shader("implementation");
     shader->use();
@@ -48,7 +51,16 @@ void MainController::draw_planet() {
     model = glm::translate(model, glm::vec3(10.0f, 0.0f, -100.0f));
     model = glm::scale(model, glm::vec3(0.3f));
     shader->set_mat4("model", model);
-    planet->draw(shader);
+    earth->draw(shader);
+    engine::resources::Shader *shader1 = resources->shader("implementation");
+    shader1->use();
+    shader1->set_mat4("projection", graphics->projection_matrix());
+    shader1->set_mat4("view", graphics->camera()->view_matrix());
+    glm::mat4 model1 = glm::mat4(1.0f);
+    model1 = glm::translate(model1, glm::vec3(1.0f, 0.0f, -10.0f));
+    model1 = glm::scale(model1, glm::vec3(0.3f));
+    shader1->set_mat4("model", model1);
+    sun->draw(shader1);
 }
 
 void MainController::update_camera() {
