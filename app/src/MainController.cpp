@@ -12,8 +12,20 @@
 #include <spdlog/spdlog.h>
 
 namespace app {
+
+class MainPlatformEventObserver : public engine::platform::PlatformEventObserver {
+    void on_mouse_move(engine::platform::MousePosition position) override;
+};
+
+void MainPlatformEventObserver::on_mouse_move(engine::platform::MousePosition position) {
+    auto camera = engine::core::Controller::get<engine::graphics::GraphicsController>()->camera();
+    camera->rotate_camera(position.dx, position.dy);
+}
+
 void MainController::initialize() {
     spdlog::info("MainController");
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+    platform->register_platform_event_observer(make_unique<MainPlatformEventObserver>());
     engine::graphics::OpenGL::enable_depth_testing();
 }
 
@@ -43,7 +55,7 @@ void MainController::update_camera() {
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto camera = graphics->camera();
-    float dt = 2.0f;
+    float dt = platform->dt();
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
     if (platform->key(engine::platform::KEY_D).is_down() || platform->key(engine::platform::KEY_RIGHT).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::RIGHT, dt); }
