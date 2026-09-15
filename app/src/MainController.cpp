@@ -86,7 +86,18 @@ void MainController::update() { update_camera(); }
 
 void MainController::begin_draw() { engine::graphics::OpenGL::clear_buffers(); }
 
-void MainController::draw() { draw_planet(); }
+void MainController::draw_background() {
+    auto resource = engine::core::Controller::get<engine::resources::ResourcesController>();
+    auto background = resource->skybox("space");
+    auto shader = resource->shader("background");
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    graphics->draw_skybox(shader, background);
+}
+
+void MainController::draw() {
+    draw_planet();
+    draw_background();
+}
 
 void MainController::end_draw() {
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();

@@ -48,7 +48,7 @@ TAB -> Uklanja se GUI prozor
 
 ## Textures
 
-[link1]  
+[link1] https://unsplash.com/photos/night-sky-with-star-Bvo2-SNi0rw  
 [link2]
 
 {OTHER-RESOURCES}
