@@ -14,6 +14,7 @@ A -> Kretanje kamere levo
 ARROW_KEY_LEFT -> Kretanje kamere levo
 S -> Kretanje kamere nazad
 ARROW_KEY_DOWN -> Kretanje kamere nazad
+TAB -> Uklanja se GUI prozor
 
 ## Features
 

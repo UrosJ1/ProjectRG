@@ -5,6 +5,8 @@
 #include "MainController.hpp"
 #include "../../engine/test/app/include/app/MainController.hpp"
 
+#include "GuiController.hpp"
+
 #include <engine/graphics/GraphicsController.hpp>
 #include <engine/graphics/OpenGL.hpp>
 #include <engine/platform/PlatformController.hpp>
@@ -20,8 +22,11 @@ class MainPlatformEventObserver : public engine::platform::PlatformEventObserver
 };
 
 void MainPlatformEventObserver::on_mouse_move(engine::platform::MousePosition position) {
-    auto camera = engine::core::Controller::get<engine::graphics::GraphicsController>()->camera();
-    camera->rotate_camera(position.dx, position.dy);
+    auto gui = engine::core::Controller::get<GUIController>();
+    if (!gui->is_enabled()) {
+        auto camera = engine::core::Controller::get<engine::graphics::GraphicsController>()->camera();
+        camera->rotate_camera(position.dx, position.dy);
+    }
 }
 
 void MainController::initialize() {
@@ -64,10 +69,12 @@ void MainController::draw_planet() {
 }
 
 void MainController::update_camera() {
+    auto gui = engine::core::Controller::get<GUIController>();
+    if (gui->is_enabled()) { return; }
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto camera = graphics->camera();
-    float dt = platform->dt();
+    float dt = 0.2f;
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
     if (platform->key(engine::platform::KEY_D).is_down() || platform->key(engine::platform::KEY_RIGHT).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::RIGHT, dt); }
