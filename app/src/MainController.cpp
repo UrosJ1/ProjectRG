@@ -45,33 +45,48 @@ bool MainController::loop() {
     return true;
 }
 
-void MainController::draw_planet() {
+void MainController::draw_earth(glm::vec3 colorLight) {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     engine::resources::Model *earth = resources->model("earth");
-    engine::resources::Model *sun = resources->model("sun");
 
-    engine::resources::Shader *shader = resources->shader("implementation");
+    engine::resources::Shader *shader = resources->shader("earth");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(10.0f, 0.0f, -50.0f));
     model = glm::scale(model, glm::vec3(0.1f));
+    shader->set_mat4("model", model);
+    resources->texture("earth_texture")->bind(GL_TEXTURE0);
+    shader->set_int("texture_earth", 0);
+    glm::vec3 lightSourceDirection = glm::normalize(glm::vec3(0.0) - glm::vec3(-1.0f, 0.0f, 10.0f));
+    shader->set_vec3("lightDirection", lightSourceDirection);
+    shader->set_vec3("lightPos", graphics->camera()->Position);
+    shader->set_vec3("viewPos", glm::vec3((1.0f, 0.2f, 0.5f)));
+    shader->set_vec3("lightColor", colorLight);
+    earth->draw(shader);
+}
+
+void MainController::draw_sun() {
+    auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    engine::resources::Model *sun = resources->model("sun");
+    engine::resources::Shader *shader = resources->shader("sun");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(1.0f, 0.0f, -10.0f));
+    model = glm::scale(model, glm::vec3(3.0f));
     model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
     unsigned int rotate = glGetUniformLocation(shader->id(), "model");
     glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
-    earth->draw(shader);
-    engine::resources::Shader *shader1 = resources->shader("implementation");
-    shader1->use();
-    shader1->set_mat4("projection", graphics->projection_matrix());
-    shader1->set_mat4("view", graphics->camera()->view_matrix());
-    glm::mat4 model1 = glm::mat4(1.0f);
-    model1 = glm::translate(model1, glm::vec3(1.0f, 0.0f, -10.0f));
-    model1 = glm::scale(model1, glm::vec3(1.0f));
-    shader1->set_mat4("model", model1);
-    sun->draw(shader1);
+    resources->texture("sun")->bind(GL_TEXTURE0);
+
+
+    sun->draw(shader);
 }
 
 void MainController::update_camera() {
@@ -101,7 +116,8 @@ void MainController::draw_background() {
 }
 
 void MainController::draw() {
-    draw_planet();
+    draw_earth(colorLight);
+    draw_sun();
     draw_background();
 }
 

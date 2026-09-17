@@ -5,15 +5,20 @@
 #ifndef MAINCONTROLLER_HPP
 #define MAINCONTROLLER_HPP
 #include <engine/core/Controller.hpp>
+#include <glm/vec3.hpp>
 
 namespace app {
 
 class MainController : public engine::core::Controller {
+    glm::vec3 colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+
     void initialize() override;
 
     bool loop() override;
 
-    void draw_planet();
+    void draw_earth(glm::vec3 colorLight);
+
+    void draw_sun();
 
     void update_camera();
 
