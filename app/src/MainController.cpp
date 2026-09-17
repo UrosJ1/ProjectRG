@@ -88,6 +88,14 @@ void MainController::draw_sun() {
 
     sun->draw(shader);
 }
+void MainController::update_light() {
+    auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+    if (platform->key(engine::platform::KEY_B).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
+    if (platform->key(engine::platform::KEY_R).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
+    if (platform->key(engine::platform::KEY_G).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
+}
 
 void MainController::update_camera() {
     auto gui = engine::core::Controller::get<GUIController>();
@@ -103,7 +111,10 @@ void MainController::update_camera() {
     if (platform->key(engine::platform::KEY_S).is_down() || platform->key(engine::platform::KEY_DOWN).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::BACKWARD, dt); }
 }
 
-void MainController::update() { update_camera(); }
+void MainController::update() {
+    update_camera();
+    update_light();
+}
 
 void MainController::begin_draw() { engine::graphics::OpenGL::clear_buffers(); }
 
