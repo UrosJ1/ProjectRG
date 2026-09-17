@@ -89,14 +89,34 @@ void MainController::draw_sun() {
     sun->draw(shader);
 }
 void MainController::update_light() {
+    static bool actionStarted = false;
+    static float timer = 0.0f;
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+    if (platform->key(engine::platform::KEY_P).state() == engine::platform::Key::State::JustPressed && !actionStarted) {
+        actionStarted = true;
+        colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+
+    }
+    if (actionStarted) {
+        {
+            timer += platform->dt();
+            if (timer >= 2.0f && timer <= 4.0f) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
+            if (timer > 4.0f && timer <= 6.0f) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
+            if (timer > 6.0f && timer <= 8.0f) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f);; }
+            if (timer > 8.0f) {
+                colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+                actionStarted = false;
+                timer = 0.0f;
+            }
+        }
+    }
     if (platform->key(engine::platform::KEY_B).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
     if (platform->key(engine::platform::KEY_R).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
     if (platform->key(engine::platform::KEY_G).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
+    if (platform->key(engine::platform::KEY_C).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 1.0f, 0.75f); }
 }
-
 void MainController::update_camera() {
     auto gui = engine::core::Controller::get<GUIController>();
     if (gui->is_enabled()) { return; }
