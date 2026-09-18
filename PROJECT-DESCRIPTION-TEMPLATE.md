@@ -1,7 +1,7 @@
 # {NAME-OF-THE-PROJECT}
 
 mi22273 - Uros Jankovic
-Sunce i Zemlja - Simulacija osvetljenja koja dopire iz Sunca ka Zemlji
+Zemlja izmedju zvezde i satelita - Simulacija osvetljenja koja dopire iz Sunca i iz Meseca ka Zemlji
 
 ## Controls
 
@@ -49,13 +49,12 @@ O -> Menja se boja svetla u bilo koju boju
 
 ## Models:
 
-[link1] https://poly.pizza/m/58PjkXNdpPb
-[link2] https://poly.pizza/m/3XZEucM6wC7
+[link1] https://free3d.com/3d-model/moon-photorealistic-2k-853071.html
+[link2] https://free3d.com/3d-model/earth-photorealistic-2k-927613.html
 
 ## Textures
 
 [link1] https://unsplash.com/photos/night-sky-with-star-Bvo2-SNi0rw  
-[link2] https://unsplash.com/photos/a-close-up-of-a-yellow-and-orange-background-bpgKZQOwoj4
-[link3] https://www.solarsystemscope.com/textures/
+[link2] https://commons.wikimedia.org/wiki/File:Map_of_the_full_sun.jpg
 
 {OTHER-RESOURCES}

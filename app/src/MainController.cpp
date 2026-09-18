@@ -48,41 +48,47 @@ bool MainController::loop() {
 void MainController::draw_earth(glm::vec3 colorLight) {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
-    engine::resources::Model *earth = resources->model("earth");
 
+    engine::resources::Model *earth = resources->model("earth");
     engine::resources::Shader *shader = resources->shader("earth");
+
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(20.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.5f));
+    shader->set_mat4("model", model);
 
     glm::vec3 sunPosition = glm::vec3(-25.0f, 0.0f, -80.0f);
     glm::vec3 earthPosition = glm::vec3(20.0f, 0.0f, -80.0f);
     glm::vec3 moonPosition = glm::vec3(35.0f, 0.0f, -80.0f);
 
-    shader->set_mat4("model", model);
     shader->set_int("texture_earth", 0.5);
     resources->texture("Diffuse_2K_earth")->bind(GL_TEXTURE0);
+
     glm::vec3 lightSourceDirection = glm::normalize(earthPosition - sunPosition);
     shader->set_vec3("lightDirection", lightSourceDirection);
     shader->set_vec3("lightPos", sunPosition);
     shader->set_vec3("viewPos", graphics->camera()->Position);
     shader->set_vec3("lightColor", colorLight);
+
     glm::vec3 lightSourceDirectionForMoon = glm::normalize(earthPosition - moonPosition);
     shader->set_vec3("lightDirectionMoon", lightSourceDirectionForMoon);
     shader->set_vec3("lightPosMoon", moonPosition);
     shader->set_vec3("viewPosMoon", graphics->camera()->Position);
     shader->set_vec3("lightColor", colorLight);
+
     earth->draw(shader);
 }
 
 void MainController::draw_moon() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+
     engine::resources::Model *moon = resources->model("Moon and the sun");
     engine::resources::Shader *shader = resources->shader("moon");
+
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
@@ -90,9 +96,11 @@ void MainController::draw_moon() {
     model = glm::translate(model, glm::vec3(35.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.0f));
     model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+
     unsigned int rotate = glGetUniformLocation(shader->id(), "model");
     glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
+
     resources->texture("Diffuse_2K")->bind(GL_TEXTURE0);
 
     moon->draw(shader);
@@ -102,8 +110,10 @@ void MainController::draw_moon() {
 void MainController::draw_sun() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+
     engine::resources::Model *moon = resources->model("Moon and the sun");
     engine::resources::Shader *shader = resources->shader("moon");
+
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
@@ -111,9 +121,11 @@ void MainController::draw_sun() {
     model = glm::translate(model, glm::vec3(-25.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(5.0f));
     model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+
     unsigned int rotate = glGetUniformLocation(shader->id(), "model");
     glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
+
     resources->texture("sun")->bind(GL_TEXTURE0);
 
     moon->draw(shader);
@@ -121,13 +133,14 @@ void MainController::draw_sun() {
 void MainController::update_light() {
     static bool actionStarted = false;
     static float timer = 0.0f;
+
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+
     if (platform->key(engine::platform::KEY_P).state() == engine::platform::Key::State::JustPressed && !actionStarted) {
         actionStarted = true;
         colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
-
     }
     if (actionStarted) {
         {
@@ -151,9 +164,11 @@ void MainController::update_light() {
 void MainController::update_camera() {
     auto gui = engine::core::Controller::get<GUIController>();
     if (gui->is_enabled()) { return; }
+
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto camera = graphics->camera();
+
     float dt = 0.2f;
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
     if (platform->key(engine::platform::KEY_W).is_down() || platform->key(engine::platform::KEY_UP).is_down()) { camera->move_camera(engine::graphics::Camera::Movement::FORWARD, dt); }
