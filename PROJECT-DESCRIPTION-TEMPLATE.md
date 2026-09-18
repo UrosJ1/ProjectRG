@@ -27,7 +27,7 @@ O -> Menja se boja svetla u bilo koju boju
 ### Fundamental:
 
 [X] Model with lighting
-[ ] Two types of lighting with customizable colors and movement through GUI or ACTIONS
+[X] Two types of lighting with customizable colors and movement through GUI or ACTIONS
 [X] {ACTION_X} --- AFTER_M_SECONDS---Triggers---> {EVENT_A} ---> AFTER_N_SECONDS---Triggers---> {EVENT_B}
 
 ### Group A:

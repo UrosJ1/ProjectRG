@@ -57,19 +57,24 @@ void MainController::draw_earth(glm::vec3 colorLight) {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(20.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.5f));
+
+    glm::vec3 sunPosition = glm::vec3(-25.0f, 0.0f, -80.0f);
+    glm::vec3 earthPosition = glm::vec3(20.0f, 0.0f, -80.0f);
+    glm::vec3 moonPosition = glm::vec3(35.0f, 0.0f, -80.0f);
+
     shader->set_mat4("model", model);
     shader->set_int("texture_earth", 0.5);
-    glm::vec3 lightSourceDirection = glm::normalize(glm::vec3(0.0f, 0.0f, -10.0f));
     resources->texture("Diffuse_2K_earth")->bind(GL_TEXTURE0);
+    glm::vec3 lightSourceDirection = glm::normalize(earthPosition - sunPosition);
     shader->set_vec3("lightDirection", lightSourceDirection);
-    shader->set_vec3("lightPos", glm::vec3(10.0f, 0.0f, 10.0f));
+    shader->set_vec3("lightPos", sunPosition);
     shader->set_vec3("viewPos", graphics->camera()->Position);
     shader->set_vec3("lightColor", colorLight);
-    /*glm::vec3 lightSourceDirectionForMoon = glm::normalize(glm::vec3(0.0f, 0.0f, 30.0f));
+    glm::vec3 lightSourceDirectionForMoon = glm::normalize(earthPosition - moonPosition);
     shader->set_vec3("lightDirectionMoon", lightSourceDirectionForMoon);
-    shader->set_vec3("lightPosMoon", graphics->camera()->Position);
-    shader->set_vec3("viewPosMoon", glm::vec3((1.0f, 0.2f, 0.5f)));
-    shader->set_vec3("lightColor", colorLight);*/
+    shader->set_vec3("lightPosMoon", moonPosition);
+    shader->set_vec3("viewPosMoon", graphics->camera()->Position);
+    shader->set_vec3("lightColor", colorLight);
     earth->draw(shader);
 }
 
