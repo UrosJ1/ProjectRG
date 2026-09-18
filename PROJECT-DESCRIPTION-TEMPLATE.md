@@ -19,7 +19,8 @@ R -> Menja se boja svetla u crvenu
 G -> Menja se boja svetla u zelenu
 B -> Menja se boja svetla u plavu
 C -> Postavlja se boja na podrazumevano
-P -> Menjaju se boje na svake dve sekunde dok se ne obidje jedan ciklus boja
+P -> Menjaju se crveno, plava i zelena boja na svake dve sekunde dok se ne obidje jedan ciklus
+O -> Menja se boja svetla u bilo koju boju 
 
 ## Features
 

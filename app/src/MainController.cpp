@@ -129,7 +129,7 @@ void MainController::update_light() {
             timer += platform->dt();
             if (timer >= 2.0f && timer <= 4.0f) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
             if (timer > 4.0f && timer <= 6.0f) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
-            if (timer > 6.0f && timer <= 8.0f) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f);; }
+            if (timer > 6.0f && timer <= 8.0f) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
             if (timer > 8.0f) {
                 colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
                 actionStarted = false;
@@ -137,6 +137,7 @@ void MainController::update_light() {
             }
         }
     }
+    if (platform->key(engine::platform::KEY_O).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX); }
     if (platform->key(engine::platform::KEY_B).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
     if (platform->key(engine::platform::KEY_R).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
     if (platform->key(engine::platform::KEY_G).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
