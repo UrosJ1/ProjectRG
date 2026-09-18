@@ -2,10 +2,12 @@
   "resources": {
     "models": {
       "earth": {
-        "path": "earth/earth.obj"
+        "path" : "earth/Earth 2K.obj",
+        "flip_uvs" : true
       },
-      "sun": {
-        "path": "sun/model.obj"
+      "Moon and the sun": {
+        "path" : "Moon and the sun/Moon 2K.obj",
+        "flip_uvs" : true
       }
     }
   },

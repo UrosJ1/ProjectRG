@@ -18,6 +18,8 @@ class MainController : public engine::core::Controller {
 
     void draw_earth(glm::vec3 colorLight);
 
+    void draw_moon();
+
     void draw_sun();
 
     void update_light();

@@ -55,38 +55,63 @@ void MainController::draw_earth(glm::vec3 colorLight) {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(10.0f, 0.0f, -50.0f));
-    model = glm::scale(model, glm::vec3(0.1f));
+    model = glm::translate(model, glm::vec3(20.0f, 0.0f, -80.0f));
+    model = glm::scale(model, glm::vec3(1.5f));
     shader->set_mat4("model", model);
-    resources->texture("earth_texture")->bind(GL_TEXTURE0);
-    shader->set_int("texture_earth", 0);
-    glm::vec3 lightSourceDirection = glm::normalize(glm::vec3(0.0) - glm::vec3(-1.0f, 0.0f, 10.0f));
+    shader->set_int("texture_earth", 0.5);
+    glm::vec3 lightSourceDirection = glm::normalize(glm::vec3(0.0f, 0.0f, -10.0f));
+    resources->texture("Diffuse_2K_earth")->bind(GL_TEXTURE0);
     shader->set_vec3("lightDirection", lightSourceDirection);
-    shader->set_vec3("lightPos", graphics->camera()->Position);
-    shader->set_vec3("viewPos", glm::vec3((1.0f, 0.2f, 0.5f)));
+    shader->set_vec3("lightPos", glm::vec3(10.0f, 0.0f, 10.0f));
+    shader->set_vec3("viewPos", graphics->camera()->Position);
     shader->set_vec3("lightColor", colorLight);
+    /*glm::vec3 lightSourceDirectionForMoon = glm::normalize(glm::vec3(0.0f, 0.0f, 30.0f));
+    shader->set_vec3("lightDirectionMoon", lightSourceDirectionForMoon);
+    shader->set_vec3("lightPosMoon", graphics->camera()->Position);
+    shader->set_vec3("viewPosMoon", glm::vec3((1.0f, 0.2f, 0.5f)));
+    shader->set_vec3("lightColor", colorLight);*/
     earth->draw(shader);
 }
 
-void MainController::draw_sun() {
+void MainController::draw_moon() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
-    engine::resources::Model *sun = resources->model("sun");
-    engine::resources::Shader *shader = resources->shader("sun");
+    engine::resources::Model *moon = resources->model("Moon and the sun");
+    engine::resources::Shader *shader = resources->shader("moon");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(1.0f, 0.0f, -10.0f));
-    model = glm::scale(model, glm::vec3(3.0f));
+    model = glm::translate(model, glm::vec3(35.0f, 0.0f, -80.0f));
+    model = glm::scale(model, glm::vec3(1.0f));
+    model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+    unsigned int rotate = glGetUniformLocation(shader->id(), "model");
+    glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
+    shader->set_mat4("model", model);
+    resources->texture("Diffuse_2K")->bind(GL_TEXTURE0);
+
+    moon->draw(shader);
+}
+
+
+void MainController::draw_sun() {
+    auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    engine::resources::Model *moon = resources->model("Moon and the sun");
+    engine::resources::Shader *shader = resources->shader("moon");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(-25.0f, 0.0f, -80.0f));
+    model = glm::scale(model, glm::vec3(5.0f));
     model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
     unsigned int rotate = glGetUniformLocation(shader->id(), "model");
     glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
     resources->texture("sun")->bind(GL_TEXTURE0);
 
-
-    sun->draw(shader);
+    moon->draw(shader);
 }
 void MainController::update_light() {
     static bool actionStarted = false;
@@ -149,6 +174,7 @@ void MainController::draw_background() {
 void MainController::draw() {
     draw_earth(colorLight);
     draw_sun();
+    draw_moon();
     draw_background();
 }
 
