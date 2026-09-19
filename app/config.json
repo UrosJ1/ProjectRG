@@ -1,11 +1,19 @@
 {
   "resources": {
     "models": {
+      "earth": {
+        "path" : "earth/Earth 2K.obj",
+        "flip_uvs" : true
+      },
+      "Moon and the sun": {
+        "path" : "Moon and the sun/Moon 2K.obj",
+        "flip_uvs" : true
+      }
     }
   },
   "window": {
-    "height": 600,
-    "title": "Hello, window!",
-    "width": 800
+    "height": 800,
+    "title": "Project",
+    "width": 1000
   }
 }
