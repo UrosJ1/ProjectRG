@@ -26,7 +26,7 @@ void GUIController::draw() {
     ImGui::Begin("Zdravo!");
 
     ImGui::SetWindowSize(ImVec2(800, 400));
-    ImGui::Text("Dobrodosli u aplikaciju. \nPritiskom na dugme G, svetlost koja se pojavljuje na planetu ce se promeniti u zelenu. \nPritiskom na dugme B, svetlost ce se promeniti u plavu, dok pritiskom na dugme R promenice se u crvenu. \nPritiskom na dugme C, vratice te podrazumevanu boju svetla. \nPritiskom na dugme P, boje svetla ce se menjati na svake dve sekunde, pocinje i zavrsava se podrazumevanom bojom. \nPritiskom na dugme O, mozete ocekivati bilo koju boju svetla. \nMozete se kretati na dugme W, A, S i D, takodje mozete pomerati kameru tako sto pomerite Vas mis. \nZa zatvaranje (i po potrebi ponovo otvaranje) ovog prostora, pretisnite TAB. \nIzlazom iz ove aplikacije mozete uciniti pritiskom na dugme ESCAPE.");
+    ImGui::Text("Dobrodosli u aplikaciju. \nPritiskom na dugme G, svetlost koja se pojavljuje na planetu ce se promeniti u zelenu. \nPritiskom na dugme B, svetlost ce se promeniti u plavu, dok pritiskom na dugme R promenice se u crvenu. \nPritiskom na dugme C, vratice te podrazumevanu boju svetla. \nPritiskom na dugme P, boje svetla ce se menjati na svake dve sekunde, pocinje i zavrsava se podrazumevanom bojom. \nPritiskom na dugme O, mozete ocekivati bilo koju boju svetla. \nMozete se kretati na dugme W, A, S i D, takodje mozete pomerati kameru tako sto pomerite Vas mis. \nZa zatvaranje (i po potrebi ponovo otvaranje) ovog prostora, pretisnite TAB. \nMozete pritisnuti ESCAPE kako biste izasli iz aplikacije.");
 
     ImGui::End();
 

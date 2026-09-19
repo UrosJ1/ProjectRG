@@ -15,7 +15,7 @@ uniform mat4 projection;
 
 void main(){
     FragPos = vec3(model * vec4(aPos, 1.0f));
-    Normal = aNormal;
+    Normal = mat3 (transpose(inverse(model))) * aNormal;
     TexCoords = aTexCoords;
     gl_Position = projection * view * vec4(FragPos, 1.0f);
 }
@@ -54,7 +54,7 @@ vec3 sun(){
 
     vec3 viewDirection = normalize(viewPos - FragPos);
     vec3 reflectDirection = reflect(-directionOfLight, norm);
-    float spec = pow(max(dot(viewDirection, reflectDirection), 0.0f), 32.0f);
+    float spec = pow(max(dot(viewDirection, reflectDirection), 0.0f), 28.0f);
     vec3 specular = lightColor * spec;
 
     if (diff <= 0.0f){

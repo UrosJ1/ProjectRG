@@ -58,6 +58,10 @@ void MainController::draw_earth(glm::vec3 colorLight) {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(20.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.5f));
+    model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+
+    unsigned int rotate = glGetUniformLocation(shader->id(), "model");
+    glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
 
     glm::vec3 sunPosition = glm::vec3(-25.0f, 0.0f, -80.0f);
