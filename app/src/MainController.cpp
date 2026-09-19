@@ -3,11 +3,9 @@
 //
 
 #include "MainController.hpp"
-#include "../../engine/test/app/include/app/MainController.hpp"
 
+#include "GL/gl.h"
 #include "GuiController.hpp"
-#include "../../engine/libs/glad/include/glad/glad.h"
-#include "../../engine/libs/glfw/include/GLFW/glfw3.h"
 
 #include <engine/graphics/GraphicsController.hpp>
 #include <engine/graphics/OpenGL.hpp>
@@ -48,6 +46,7 @@ bool MainController::loop() {
 void MainController::draw_earth(glm::vec3 colorLight) {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
 
     engine::resources::Model *earth = resources->model("earth");
     engine::resources::Shader *shader = resources->shader("earth");
@@ -58,10 +57,8 @@ void MainController::draw_earth(glm::vec3 colorLight) {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(20.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.5f));
-    model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, platform->frame_time().current, glm::vec3(0.0f, 1.0f, 0.0f));
 
-    unsigned int rotate = glGetUniformLocation(shader->id(), "model");
-    glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
 
     glm::vec3 sunPosition = glm::vec3(-25.0f, 0.0f, -80.0f);
@@ -89,6 +86,7 @@ void MainController::draw_earth(glm::vec3 colorLight) {
 void MainController::draw_moon() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
 
     engine::resources::Model *moon = resources->model("Moon and the sun");
     engine::resources::Shader *shader = resources->shader("moon");
@@ -99,10 +97,8 @@ void MainController::draw_moon() {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(35.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(1.0f));
-    model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, platform->frame_time().current, glm::vec3(0.0f, 1.0f, 0.0f));
 
-    unsigned int rotate = glGetUniformLocation(shader->id(), "model");
-    glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
 
     resources->texture("Diffuse_2K")->bind(GL_TEXTURE0);
@@ -114,6 +110,7 @@ void MainController::draw_moon() {
 void MainController::draw_sun() {
     auto resources = engine::core::Controller::get<engine::resources::ResourcesController>();
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
 
     engine::resources::Model *moon = resources->model("Moon and the sun");
     engine::resources::Shader *shader = resources->shader("moon");
@@ -124,10 +121,8 @@ void MainController::draw_sun() {
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(-25.0f, 0.0f, -80.0f));
     model = glm::scale(model, glm::vec3(5.0f));
-    model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, platform->frame_time().current, glm::vec3(0.0f, 1.0f, 0.0f));
 
-    unsigned int rotate = glGetUniformLocation(shader->id(), "model");
-    glUniformMatrix4fv(rotate, 1, GL_FALSE, glm::value_ptr(model));
     shader->set_mat4("model", model);
 
     resources->texture("sun")->bind(GL_TEXTURE0);
@@ -144,26 +139,26 @@ void MainController::update_light() {
 
     if (platform->key(engine::platform::KEY_P).state() == engine::platform::Key::State::JustPressed && !actionStarted) {
         actionStarted = true;
-        colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+        m_color_light = glm::vec3(1.0f, 1.0f, 0.75f);
     }
     if (actionStarted) {
         {
             timer += platform->dt();
-            if (timer >= 2.0f && timer <= 4.0f) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
-            if (timer > 4.0f && timer <= 6.0f) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
-            if (timer > 6.0f && timer <= 8.0f) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
+            if (timer >= 2.0f && timer <= 4.0f) { m_color_light = glm::vec3(1.0f, 0.2f, 0.15f); }
+            if (timer > 4.0f && timer <= 6.0f) { m_color_light = glm::vec3(0.0f, 1.0f, 0.75f); }
+            if (timer > 6.0f && timer <= 8.0f) { m_color_light = glm::vec3(0.15f, 0.1f, 1.0f); }
             if (timer > 8.0f) {
-                colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+                m_color_light = glm::vec3(1.0f, 1.0f, 0.75f);
                 actionStarted = false;
                 timer = 0.0f;
             }
         }
     }
-    if (platform->key(engine::platform::KEY_O).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX); }
-    if (platform->key(engine::platform::KEY_B).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.15f, 0.1f, 1.0f); }
-    if (platform->key(engine::platform::KEY_R).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 0.2f, 0.15f); }
-    if (platform->key(engine::platform::KEY_G).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(0.0f, 1.0f, 0.75f); }
-    if (platform->key(engine::platform::KEY_C).state() == engine::platform::Key::State::JustPressed) { colorLight = glm::vec3(1.0f, 1.0f, 0.75f); }
+    if (platform->key(engine::platform::KEY_O).state() == engine::platform::Key::State::JustPressed) { m_color_light = glm::vec3((float) rand() / RAND_MAX, (float) rand() / RAND_MAX, (float) rand() / RAND_MAX); }
+    if (platform->key(engine::platform::KEY_B).state() == engine::platform::Key::State::JustPressed) { m_color_light = glm::vec3(0.15f, 0.1f, 1.0f); }
+    if (platform->key(engine::platform::KEY_R).state() == engine::platform::Key::State::JustPressed) { m_color_light = glm::vec3(1.0f, 0.2f, 0.15f); }
+    if (platform->key(engine::platform::KEY_G).state() == engine::platform::Key::State::JustPressed) { m_color_light = glm::vec3(0.0f, 1.0f, 0.75f); }
+    if (platform->key(engine::platform::KEY_C).state() == engine::platform::Key::State::JustPressed) { m_color_light = glm::vec3(1.0f, 1.0f, 0.75f); }
 }
 void MainController::update_camera() {
     auto gui = engine::core::Controller::get<GUIController>();
@@ -197,7 +192,7 @@ void MainController::draw_background() {
 }
 
 void MainController::draw() {
-    draw_earth(colorLight);
+    draw_earth(m_color_light);
     draw_sun();
     draw_moon();
     draw_background();
@@ -207,4 +202,4 @@ void MainController::end_draw() {
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
     platform->swap_buffers();
 }
-}// app
+}// namespace app

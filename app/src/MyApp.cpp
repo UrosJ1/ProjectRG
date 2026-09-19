@@ -6,7 +6,6 @@
 
 #include "GuiController.hpp"
 #include "MainController.hpp"
-#include "../../engine/test/app/include/app/GUIController.hpp"
 
 #include <spdlog/spdlog.h>
 
@@ -19,4 +18,4 @@ void MyApp::app_setup() {
     controller->before(gui_controller);
 }
 
-}// app
+}// namespace app

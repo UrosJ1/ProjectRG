@@ -58,7 +58,9 @@ void App::initialize() {
 }
 
 bool App::loop() {
-    for (auto controller: m_controllers) { if (controller->is_enabled() && !controller->loop()) { return false; } }
+    for (auto controller: m_controllers) {
+        if (controller->is_enabled() && !controller->loop()) { return false; }
+    }
     return true;
 }
 
@@ -70,11 +72,19 @@ void App::poll_events() {
     }
 }
 
-void App::update() { for (auto controller: m_controllers) { if (controller->is_enabled()) { controller->update(); } } }
+void App::update() {
+    for (auto controller: m_controllers) {
+        if (controller->is_enabled()) { controller->update(); }
+    }
+}
 
 void App::draw() {
-    for (auto controller: m_controllers) { if (controller->is_enabled()) { controller->begin_draw(); } }
-    for (auto controller: m_controllers) { if (controller->is_enabled()) { controller->draw(); } }
+    for (auto controller: m_controllers) {
+        if (controller->is_enabled()) { controller->begin_draw(); }
+    }
+    for (auto controller: m_controllers) {
+        if (controller->is_enabled()) { controller->draw(); }
+    }
     for (auto it = m_controllers.rbegin(); it != m_controllers.rend(); ++it) {
         auto controller = *it;
         if (controller->is_enabled()) { controller->end_draw(); }

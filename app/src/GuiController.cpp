@@ -4,14 +4,13 @@
 
 #include "GuiController.hpp"
 
-#include <imgui.h>
 #include <engine/graphics/GraphicsController.hpp>
 #include <engine/platform/PlatformController.hpp>
+#include <imgui.h>
 
 namespace app {
 void GUIController::initialize() {
-    set_enable(true
-            );
+    set_enable(true);
 }
 
 void GUIController::poll_events() {
@@ -32,4 +31,4 @@ void GUIController::draw() {
 
     graphics->end_gui();
 }
-}// app
+}// namespace app

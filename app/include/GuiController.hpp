@@ -12,6 +12,6 @@ class GUIController : public engine::core::Controller {
     void draw() override;
 };
 
-}// app
+}// namespace app
 
-#endif //GUICONTROLLER_HPP
+#endif//GUICONTROLLER_HPP

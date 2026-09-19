@@ -10,13 +10,13 @@
 namespace app {
 
 class MainController : public engine::core::Controller {
-    glm::vec3 colorLight = glm::vec3(1.0f, 1.0f, 0.75f);
+    glm::vec3 m_color_light = glm::vec3(1.0f, 1.0f, 0.75f);
 
     void initialize() override;
 
     bool loop() override;
 
-    void draw_earth(glm::vec3 colorLight);
+    void draw_earth(glm::vec3 color_light);
 
     void draw_moon();
 
@@ -37,6 +37,6 @@ class MainController : public engine::core::Controller {
     void end_draw() override;
 };
 
-}// app
+}// namespace app
 
-#endif //MAINCONTROLLER_HPP
+#endif//MAINCONTROLLER_HPP
