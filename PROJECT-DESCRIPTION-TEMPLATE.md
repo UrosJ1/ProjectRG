@@ -1,25 +1,41 @@
-# {NAME-OF-THE-PROJECT}
+# Zemlja izmedju zvezde i satelita
 
 mi22273 - Uros Jankovic
+
 Zemlja izmedju zvezde i satelita - Simulacija osvetljenja koja dopire iz Sunca i iz Meseca ka Zemlji
 
 ## Controls
 
 ESC -> Izlaz iz aplikacije  
+
 W -> Kretanje kamere napred  
+
 ARROW_KEY_UP -> Kretanje kamere napred
+
 D -> Kretanje kamere desno
+
 ARROW_KEY_RIGHT -> Kretanje kamere desno
+
 A -> Kretanje kamere levo
+
 ARROW_KEY_LEFT -> Kretanje kamere levo
+
 S -> Kretanje kamere nazad
+
 ARROW_KEY_DOWN -> Kretanje kamere nazad
+
 TAB -> Uklanja/otvara se GUI prozor
+
 R -> Menja se boja svetla u crvenu
+
 G -> Menja se boja svetla u zelenu
+
 B -> Menja se boja svetla u plavu
+
 C -> Postavlja se boja na podrazumevano
+
 P -> Menjaju se crveno, plava i zelena boja na svake dve sekunde dok se ne obidje jedan ciklus
+
 O -> Menja se boja svetla u bilo koju boju 
 
 ## Features
