@@ -21,8 +21,8 @@ void Texture::destroy() {
 }
 
 void Texture::bind(int32_t sampler) {
-    RG_GUARANTEE(sampler >= GL_TEXTURE0 && sampler <= GL_TEXTURE31, "sampler out of range");
-    CHECKED_GL_CALL(glActiveTexture, sampler);
+    RG_GUARANTEE(sampler >= 0 && sampler <= 31, "sampler out of range");
+    CHECKED_GL_CALL(glActiveTexture, GL_TEXTURE0 + sampler);
     CHECKED_GL_CALL(glBindTexture, GL_TEXTURE_2D, m_id);
 }
 
