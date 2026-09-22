@@ -4,7 +4,6 @@
 
 #include "MainController.hpp"
 
-#include "GL/gl.h"
 #include "GuiController.hpp"
 
 #include <engine/graphics/GraphicsController.hpp>
@@ -65,8 +64,8 @@ void MainController::draw_earth(glm::vec3 colorLight) {
     glm::vec3 earthPosition = glm::vec3(20.0f, 0.0f, -80.0f);
     glm::vec3 moonPosition = glm::vec3(35.0f, 0.0f, -80.0f);
 
-    shader->set_int("texture_earth", 0.5);
-    resources->texture("Diffuse_2K_earth")->bind(GL_TEXTURE0);
+    shader->set_int("texture_earth", 0);
+    resources->texture("Diffuse_2K_earth")->bind(0);
 
     glm::vec3 lightSourceDirection = glm::normalize(earthPosition - sunPosition);
     shader->set_vec3("lightDirection", lightSourceDirection);
@@ -100,8 +99,9 @@ void MainController::draw_moon() {
     model = glm::rotate(model, platform->frame_time().current, glm::vec3(0.0f, 1.0f, 0.0f));
 
     shader->set_mat4("model", model);
+    shader->set_int("texture_diffuse", 1);
 
-    resources->texture("Diffuse_2K")->bind(GL_TEXTURE0);
+    resources->texture("Diffuse_2K")->bind(1);
 
     moon->draw(shader);
 }
@@ -125,7 +125,8 @@ void MainController::draw_sun() {
 
     shader->set_mat4("model", model);
 
-    resources->texture("sun")->bind(GL_TEXTURE0);
+    shader->set_int("texture_diffuse", 2);
+    resources->texture("sun")->bind(2);
 
     moon->draw(shader);
 }

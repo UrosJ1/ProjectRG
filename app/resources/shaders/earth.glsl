@@ -39,7 +39,6 @@ uniform vec3 viewPosMoon;
 uniform vec3 lightColorMoon = vec3(0.2, 0.2, 0.2);
 
 uniform sampler2D texture_earth;
-uniform sampler2D texture_earth_Moon;
 
 vec3 sun(){
     vec3 texColor = texture(texture_earth, TexCoords).rgb;
@@ -65,7 +64,7 @@ vec3 sun(){
 }
 
 vec3 moon(){
-    vec3 texColorMoon = texture(texture_earth_Moon, TexCoords).rgb;
+    vec3 texColorMoon = texture(texture_earth, TexCoords).rgb;
 
     vec3 ambientMoon = 0.09f * texColorMoon;
 
